@@ -1,10 +1,16 @@
 # Interface Chaos Lab ⚡
 
+[![Validate skill](https://github.com/disleveK/interface-chaos-lab/actions/workflows/validate.yml/badge.svg)](https://github.com/disleveK/interface-chaos-lab/actions/workflows/validate.yml)
+
 **Your UI looks perfect. Now let reality use it.**
 
 Interface Chaos Lab is an open-source Codex/ChatGPT skill that stress-tests web interfaces against the failures polished demos rarely show: tiny screens, keyboard-only navigation, stale data, slow APIs, expired sessions, duplicate submissions, offline saves, localization, and more.
 
 It runs deterministic **Disaster Roulette** scenarios, captures reproducible evidence, assigns severity, calculates a survival score, and—when authorized—repairs the highest-risk failures before replaying the exact same storm.
+
+## Real-world proof
+
+The first production-safe audit tested [OncoSys AI](https://oncosysai.com/) and scored **91/100**, with 4 of 7 planned scenarios executed. It caught conflicting pilot dates and duplicated skip navigation while proving the live demo blocks duplicate submissions. Read the [full evidence-first case study](case-studies/oncosysai.com.md).
 
 ## What it tests
 
