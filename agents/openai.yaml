@@ -1,0 +1,15 @@
+interface:
+  display_name: Interface Chaos Lab
+  short_description: Stress-test interfaces against real-world chaos
+  brand_color: '#B7FF00'
+  default_prompt: Use $interface-chaos-lab to unleash realistic UI failures and produce
+    a reproducible survival report.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
