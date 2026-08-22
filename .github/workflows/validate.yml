@@ -1,0 +1,48 @@
+name: Validate skill
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate skill metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path("SKILL.md").read_text(encoding="utf-8")
+          assert text.startswith("---\n"), "SKILL.md must start with YAML frontmatter"
+          frontmatter = text.split("---", 2)[1]
+          fields = {line.split(":", 1)[0].strip() for line in frontmatter.splitlines() if ":" in line}
+          assert fields == {"name", "description"}, f"unexpected frontmatter fields: {fields}"
+          assert "name: interface-chaos-lab" in frontmatter
+          assert "description:" in frontmatter
+          print("Skill metadata is valid")
+          PY
+      - name: Compile scripts
+        run: python -m py_compile scripts/chaos_plan.py scripts/survival_score.py
+      - name: Verify deterministic plan
+        run: |
+          python scripts/chaos_plan.py --count 5 --seed ci > /tmp/plan-a.json
+          python scripts/chaos_plan.py --count 5 --seed ci > /tmp/plan-b.json
+          diff -u /tmp/plan-a.json /tmp/plan-b.json
+      - name: Verify scoring fixture
+        run: |
+          python scripts/survival_score.py case-studies/oncosysai-findings.json > /tmp/score.json
+          python - <<'PY'
+          import json
+          score = json.load(open("/tmp/score.json", encoding="utf-8"))
+          assert score["score"] == 91, score
+          assert score["coverage"] == {"executed": 4, "planned": 7}, score
+          print(score)
+          PY
