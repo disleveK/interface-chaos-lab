@@ -1,0 +1,14 @@
+{
+  "target": "https://oncosysai.com/",
+  "audited_at": "2026-08-22",
+  "seed": "oncosys-launch-v1",
+  "findings": [
+    {"id": "server-error", "status": "PASS", "severity": "important"},
+    {"id": "duplicate-submit", "status": "PASS", "severity": "dangerous"},
+    {"id": "conflicting-status", "status": "FAIL", "severity": "important"},
+    {"id": "keyboard-only", "status": "FAIL", "severity": "minor"},
+    {"id": "zoom-200", "status": "BLOCKED", "severity": "important"},
+    {"id": "text-expansion", "status": "BLOCKED", "severity": "important"},
+    {"id": "extreme-values", "status": "BLOCKED", "severity": "important"}
+  ]
+}
